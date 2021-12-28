@@ -1,0 +1,336 @@
+html {
+  scroll-behavior: smooth;
+}
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Lato", sans-serif, "Yanone Kaffeesatz", sans-serif;
+  font-size: 0.9rem;
+  --decDrop: 6rem;
+  --largIcon: 220px;
+  --hautMenu: 2.2rem;
+}
+.page {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: auto;
+  grid-template-rows: var(--hautMenu) 0 1fr;
+  grid-template-areas:
+    "menu"
+    "video"
+    "main";
+  background: url("./images/LesAnges.jpg") center/cover;
+  background-repeat: no-repeat;
+}
+/* menu des onglets haut de page */
+.menu {
+  grid-area: menu;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+}
+.btn-top {
+  margin-top: 5px;
+  margin-left: 0.5rem;
+  min-width: 15vw;
+  max-height: 30px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  background-color: gold;
+  box-shadow: inset -1px -1px 2px grey;
+}
+.btn-top:hover {
+  box-shadow: 3px 3px 5px black;
+  cursor: pointer;
+  background-color: hsl(45, 100%, 50%);
+}
+
+.titMenu {
+  text-align: center;
+  font-size: large;
+}
+
+/* containers dropdown pour les sous menus */
+.dropdown {
+  position: absolute;
+  top: calc(var(--hautMenu) + 2px);
+  color: black;
+  border-radius: 5px;
+  margin: auto;
+  overflow: hidden;
+  z-index: 10;
+  box-shadow: 5px 5px 5px grey;
+  cursor: auto;
+}
+.bloc-links {
+  padding: 0 1rem;
+  transition: height 0.5s ease-in-out;
+  height: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+  background-color: rgb(238, 235, 227, 0.9);
+  z-index: 30;
+}
+.bloc-links li,
+span,
+a {
+  padding: 2px 5px;
+  list-style-type: none;
+  color: black;
+  display: block;
+  width: auto;
+}
+.bloc-links :is(li, span):hover {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+/*  sous menus des dropdown */
+.sousMenuFam {
+  display: grid;
+  grid-template-areas:
+    "a1 a1 a2 a2"
+    "b1 b2 b3 b4"
+    "c1 c2 c3 c4";
+  border: 1px dotted rgba(128, 128, 128, 0.5);
+}
+.sousMenuVoy {
+  display: grid;
+  grid-template-areas:
+    "a1 a1"
+    "c1 c2"
+    "d1 d2"
+    "e1 e2"
+    "f1 f2";
+  border: 1px dotted rgba(128, 128, 128, 0.5);
+}
+
+.sousMenuBlog {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* padding: 20px; */
+  margin-top: 10px;
+  min-height: calc(100vh - 1.5 * var(--hautMenu));
+  overflow-y: scroll;
+  border-radius: 5px;
+}
+/* mise en forme des videos */
+.videos {
+  display: none;
+  grid-area: video;
+}
+.enveloppe {
+  grid-area: main;
+  position: relative;
+  padding: 5px 0;
+  margin: 5px 2px;
+}
+.ecranVideos {
+  overflow-y: scroll;
+  height: calc(100vh - 1.3 * var(--hautMenu));
+}
+/* iframes YT */
+.contYT {
+  margin: auto;
+}
+/* .show {
+  display:block;
+} */
+.ecranYT {
+  position: relative;
+  margin: auto;
+}
+.lect {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.479);
+}
+/* fleche de retour pour bas de page */
+.retour {
+  margin: auto;
+  border: none;
+  display: block;
+  background-color: transparent;
+}
+.retour > img:hover {
+  filter: drop-shadow(0 -2px 3px black);
+}
+.retour > img {
+  width: 40px;
+}
+/* centrer verticalement les continents de Voyage*/
+.sousMenuVoy > ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.checkB {
+  display: flex;
+  justify-content: space-evenly;
+}
+.a1 {
+  grid-area: a1;
+}
+.a2 {
+  grid-area: a2;
+}
+.b1 {
+  grid-area: b1;
+}
+.b2 {
+  grid-area: b2;
+}
+.b3 {
+  grid-area: b3;
+}
+.b4 {
+  grid-area: b4;
+}
+/* les lignes a et b sont centrées, les autres non */
+.a1,
+.a2,
+.b1,
+.b2,
+.b3,
+.b4 {
+  text-align: center;
+}
+
+.c1 {
+  grid-area: c1;
+}
+.c2 {
+  grid-area: c2;
+}
+.c3 {
+  grid-area: c3;
+}
+.c4 {
+  grid-area: c4;
+}
+.d1 {
+  grid-area: d1;
+}
+.d2 {
+  grid-area: d2;
+}
+.e1 {
+  grid-area: e1;
+}
+.e2 {
+  grid-area: e2;
+}
+.f1 {
+  grid-area: f1;
+}
+∏ .f2 {
+  grid-area: f2;
+}
+/* border les sous menus */
+.sousMenuVoy :is(ul, .checkB),
+.sousMenuFam ul {
+  border: 1px solid rgba(128, 128, 128, 0.5);
+}
+/* titres */
+.titre {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.3rem;
+  text-align: right;
+  padding-right: 0.5rem;
+  font-size: 1.2rem;
+}
+.vidTitre {
+  text-align: center;
+  color: blue;
+  font-size: 1.2rem;
+ ;
+ 
+}
+/* mise en forme des icones Blog */
+.decal {
+  left: 1rem;
+  width: calc(100vw - 2rem);
+}
+.envIcon {
+  display: flex;
+  width: 100%;
+  height: calc(100% - 10px);
+  border-radius: 5px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  overflow: auto;
+}
+.relat {
+  position: relative;
+  display: flex;
+}
+.blogs {
+  width: var(--largIcon);
+  height: var(--largIcon);
+  margin: 10px;
+  border-radius: 25%;
+  cursor: pointer;
+}
+.ti_blog {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 1.5em;
+  color: gold;
+  text-shadow: 1px 1px 2px black;
+}
+.blogs:hover {
+  box-shadow: 10px 5px 5px gray;
+}
+.ti_blog:hover {
+  text-shadow: -1px -1px 2px black;
+  color: hsl(45, 100%, 50%) !important ;
+  text-decoration: none !important;
+}
+/* icone de suppression des videos */
+#efface {
+  align-self: flex-end;
+  width: 2rem;
+  margin-left: 0.5rem;
+  max-height: 30px;
+}
+#efface:hover {
+  filter: drop-shadow(2px 2px 2px grey);
+}
+
+/* pour les petits ecrans passer le titre en dessous */
+@media screen and (max-width: 700px) {
+  .titre {
+    top: 2.5rem;
+    right: 10px;
+  }
+  .page {
+    grid-template-rows: calc(2 * var(--hautMenu)) 0 1fr;
+  }
+
+  #efface {
+    align-self: unset;
+    width: 2rem;
+
+    margin-left: 0.5rem;
+    margin-top: 0.3rem;
+    max-height: 30px;
+  }
+  .ecranVideos {
+    height: calc(100vh - 2.2 * var(--hautMenu));
+  }
+}
