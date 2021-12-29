@@ -34,7 +34,7 @@ const dimZoom = (el) => {
   if (el.dataset.ec === "43") ratioI = 4 / 3;
   /* ratio de la fenetre ecvideos - dimensions d l'ombre des iframes YT*/
   const wl = ecVideos.clientWidth - 5;
-  const wh = ecVideos.clientHeight - 31;/* -31 pour tenir compte du titre */
+  const wh = ecVideos.clientHeight - 31; /* -31 pour tenir compte du titre */
   const ratioW = wl / wh;
   /* si on compare les ratios,il faut inverser et definir d'abord la hauteur */
   el.style.width = wl + "px";
@@ -43,6 +43,7 @@ const dimZoom = (el) => {
     el.style.width = wh * ratioI + "px";
     el.style.height = wh + "px";
   }
+  return el.style.height;
 };
 
 /* fonction pour créer les boites contYT/ecranYT pour les futurs Iframes YT */
@@ -92,14 +93,14 @@ const afficheIframe = (ecr, typ) => {
     </iframe>
     `
   );
-  dimZoom(ecr);
 };
-/* quand */
-const afficheVisible = (typ) => {
+/* afficher  les videos dans les ecranYT quand visible, sinon supprimer*/
+const afficheVisible = (hec, typ) => {
+  hec = (hec / 2 -10) +"px";
   const options = {
     root: document.querySelector(".ecranVideos"),
-    // threshold: [0],
-    rootMargin: "0px",
+    threshold: [0.5],
+    rootMargin: hec,
   };
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -110,7 +111,7 @@ const afficheVisible = (typ) => {
       }
     });
   }, options);
-  //recalcule la dim de chaque ecran et oberve les cont YT.
+  //oberve les ecranYT.
   ecrans = document.querySelectorAll(".ecranYT");
   ecrans.forEach((ecr) => {
     observer.observe(ecr);
@@ -122,25 +123,32 @@ const litElements = (listEl, blocLink, typyt) => {
     el.addEventListener("click", (e) => {
       /* supprime des ecrans YT */
       ecVideos.innerHTML = "";
-      /* Affiche les ecrans YT a partit du type video ("", .dia, .vid ou non), des dataset  et du type YT*/
+      /* créer les ecrans YT a partit du type video ("", .dia, .vid ou non), des dataset  et du type YT*/
       const aff = creerContYT(
         typeVid(blocLink) + el.dataset.id + el.dataset.ville,
         typyt
       );
+      // calculer et formlater les Ecrans YT aux bonnes dimensions
+      const ecranYT = document.querySelectorAll(".ecranYT");
+      let hec = 10000;
+      ecranYT.forEach((ec) => {
+        //formate ecranYT et calcule le minimum des hauteurs pour rootMargin
+        hec = Math.min(hec, parseInt(dimZoom(ec)));
+      });
+//affiche le titre de la selection du sous menu
       titre.innerHTML = "";
       if (aff) {
         titre.innerHTML = el.innerHTML;
       }
-      /* affiche les iframe visibles */
-      afficheVisible(typyt);
+      /* affiche les iframe visibles lors du scroll */
+      afficheVisible(hec, typyt);
     });
   });
 };
 
-
 /* ======================================================*/
 /* ======================================================*/
-// programme     
+// programme
 const ecVideos = document.querySelector(".ecranVideos");
 const menus = document.querySelectorAll(".btn-top");
 const titre = document.querySelector(".titre");
