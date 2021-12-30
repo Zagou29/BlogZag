@@ -96,18 +96,27 @@ const afficheIframe = (ecr, typ) => {
 };
 /* afficher  les videos dans les ecranYT quand visible, sinon supprimer*/
 const afficheVisible = (hec, typ) => {
-  hec = (hec / 2 -10) +"px";
+  hec = hec / 3  + "px";
   const options = {
     root: document.querySelector(".ecranVideos"),
     threshold: [0.5],
     rootMargin: hec,
   };
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        afficheIframe(entry.target, typ);
+        entry.target.classList.add("show");
+        if (!entry.target.innerHTML) {
+          afficheIframe(entry.target, typ);
+        }
       } else {
-        entry.target.innerHTML = "";
+        // efface progressivement la video et l'arrete en remplaçant le src par lui même
+        entry.target.classList.remove("show");
+        let fiche =entry.target.querySelector(".lect")
+        if( fiche)
+        {let url= fiche.getAttribute('src')
+        fiche.setAttribute('src',url)}
       }
     });
   }, options);
@@ -128,14 +137,14 @@ const litElements = (listEl, blocLink, typyt) => {
         typeVid(blocLink) + el.dataset.id + el.dataset.ville,
         typyt
       );
-      // calculer et formlater les Ecrans YT aux bonnes dimensions
+      // calculer et formater les Ecrans YT aux bonnes dimensions
       const ecranYT = document.querySelectorAll(".ecranYT");
       let hec = 10000;
       ecranYT.forEach((ec) => {
         //formate ecranYT et calcule le minimum des hauteurs pour rootMargin
         hec = Math.min(hec, parseInt(dimZoom(ec)));
       });
-//affiche le titre de la selection du sous menu
+      //affiche le titre de la selection du sous menu
       titre.innerHTML = "";
       if (aff) {
         titre.innerHTML = el.innerHTML;

@@ -143,13 +143,15 @@ a {
 .contYT {
   margin: auto;
 }
-/* .show {
-  display:block;
-} */
 .ecranYT {
   position: relative;
   margin: auto;
+  opacity:0;
+  transition: opacity 0.5s ease-in-out;
 }
+.show {
+  opacity:1;
+} 
 .lect {
   position: absolute;
   width: 100%;
