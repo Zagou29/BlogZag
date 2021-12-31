@@ -96,7 +96,7 @@ const afficheIframe = (ecr, typ) => {
 };
 /* afficher  les videos dans les ecranYT quand visible, sinon supprimer*/
 const afficheVisible = (hec, typ) => {
-  hec = hec / 3  + "px";
+  hec = hec / 3 + "px";
   const options = {
     root: document.querySelector(".ecranVideos"),
     threshold: [0.5],
@@ -113,10 +113,10 @@ const afficheVisible = (hec, typ) => {
       } else {
         // efface progressivement la video et l'arrete en remplaçant le src par lui même
         entry.target.classList.remove("show");
-        let fiche =entry.target.querySelector(".lect")
-        if( fiche)
-        {let url= fiche.getAttribute('src')
-        fiche.setAttribute('src',url)}
+        let fiche = entry.target.querySelector(".lect");
+        if (fiche) {
+          fiche.setAttribute("src", fiche.getAttribute("src"));
+        }
       }
     });
   }, options);
