@@ -96,7 +96,7 @@ const afficheIframe = (ecr, typ) => {
 };
 /* afficher  les videos dans les ecranYT quand visible, sinon supprimer*/
 const afficheVisible = (hec, typ) => {
-  hec = hec / 3 + "px";
+  hec = hec / 2 + "px";
   const options = {
     root: document.querySelector(".ecranVideos"),
     threshold: [0.5],
