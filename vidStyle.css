@@ -12,6 +12,7 @@ html {
 body {
   font-family: "Lato", sans-serif, "Yanone Kaffeesatz", sans-serif;
   font-size: 0.9rem;
+  color: black;
   --decDrop: 6rem;
   --largIcon: 220px;
   --hautMenu: 2.2rem;
@@ -61,7 +62,6 @@ body {
 .dropdown {
   position: absolute;
   top: calc(var(--hautMenu) + 2px);
-  color: black;
   border-radius: 5px;
   margin: auto;
   overflow: hidden;
@@ -85,7 +85,6 @@ span,
 a {
   padding: 2px 5px;
   list-style-type: none;
-  color: black;
   display: block;
   width: auto;
 }
@@ -146,12 +145,12 @@ a {
 .ecranYT {
   position: relative;
   margin: auto;
-  opacity:0;
+  opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
 .show {
-  opacity:1;
-} 
+  opacity: 1;
+}
 .lect {
   position: absolute;
   width: 100%;
@@ -257,8 +256,6 @@ a {
   text-align: center;
   color: blue;
   font-size: 1.2rem;
- ;
- 
 }
 /* mise en forme des icones Blog */
 .decal {
