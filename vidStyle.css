@@ -114,10 +114,6 @@ a {
 }
 
 .sousMenuBlog {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  /* padding: 20px; */
   margin-top: 10px;
   min-height: calc(100vh - 1.5 * var(--hautMenu));
   overflow-y: scroll;
@@ -273,7 +269,7 @@ a {
 }
 .relat {
   position: relative;
-  display: flex;
+  /* display: flex; */
 }
 .blogs {
   width: var(--largIcon);
@@ -324,7 +320,6 @@ a {
   #efface {
     align-self: unset;
     width: 2rem;
-
     margin-left: 0.5rem;
     margin-top: 0.3rem;
     max-height: 30px;
