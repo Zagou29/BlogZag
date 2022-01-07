@@ -50,11 +50,14 @@ const dimZoom = (el) => {
 const creerContYT = (param) => {
   const lien = document.querySelectorAll(param);
   lien.forEach((vid) => {
+    let typVid = "Video  ";
+    if (vid.classList[0] === "dia" || vid.classList[0] === "diaf") {
+      typVid = "Diapo  ";}
     //tableau des ID et texte des titres de video
     ecVideos.insertAdjacentHTML(
       "beforeend",
       `<div class="contYT" >
-      <span class="vidTitre">${vid.innerText} </span>
+      <span class="vidTitre">${typVid}${vid.innerText} </span>
        <div class="ecranYT" data-ec="${vid.dataset.ec}" data-id="${vid.dataset.id}"></div>
        <br>
        </div>`
@@ -96,7 +99,7 @@ const afficheIframe = (ecr, typ) => {
 };
 /* afficher  les videos dans les ecranYT quand visible, sinon supprimer*/
 const afficheVisible = (hec, typ) => {
-  hec = hec / 3 + "px";
+  hec = Math.round(hec / 3) + "px";
   const options = {
     root: document.querySelector(".ecranVideos"),
     threshold: [0.5],
@@ -106,10 +109,10 @@ const afficheVisible = (hec, typ) => {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("show");
         if (!entry.target.innerHTML) {
           afficheIframe(entry.target, typ);
         }
+        entry.target.classList.add("show");
       } else {
         // efface progressivement la video et l'arrete en remplaçant le src par lui même
         entry.target.classList.remove("show");
