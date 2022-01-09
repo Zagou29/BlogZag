@@ -150,7 +150,7 @@ const litElements = (listEl, blocLink, typyt) => {
       });
       //affiche le titre de la selection du sous menu
       titre.innerHTML = "";
-      console.log("el",el.innerHTML)
+ 
       if (aff) {
         titre.innerHTML = el.innerHTML;
       }
