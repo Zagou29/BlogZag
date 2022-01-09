@@ -266,6 +266,7 @@ a {
   flex-wrap: wrap;
   justify-content: space-evenly;
   overflow: auto;
+  cursor: grab;
 }
 .relat {
   position: relative;

@@ -73,6 +73,7 @@ const creerContYT = (param) => {
       /></button>`
     );
   }
+  return lien.length
 };
 // ====== afficher les Iframe YT de l'ID du lien video et calculer les dimensions de ecranYT
 const afficheIframe = (ecr, typ) => {
@@ -132,7 +133,7 @@ const afficheVisible = (hec, typ) => {
 /* lit les elements des sous menu, crée les contYT et affiche les iframe si visibles */
 const litElements = (listEl, blocLink, typyt) => {
   listEl.forEach((el) => {
-    el.addEventListener("click", (e) => {
+    el.addEventListener("click", () => {
       /* supprime des ecrans YT */
       ecVideos.innerHTML = "";
       /* créer les ecrans YT a partit du type video ("", .dia, .vid ou non), des dataset  et du type YT*/
@@ -149,6 +150,7 @@ const litElements = (listEl, blocLink, typyt) => {
       });
       //affiche le titre de la selection du sous menu
       titre.innerHTML = "";
+      console.log("el",el.innerHTML)
       if (aff) {
         titre.innerHTML = el.innerHTML;
       }
