@@ -43,7 +43,6 @@ const dimZoom = (el) => {
     el.style.width = wh * ratioI + "px";
     el.style.height = wh + "px";
   }
-  return el.style.height;
 };
 
 /* fonction pour créer les boites contYT/ecranYT pour les futurs Iframes YT */
@@ -52,7 +51,8 @@ const creerContYT = (param) => {
   lien.forEach((vid) => {
     let typVid = "Video  ";
     if (vid.classList[0] === "dia" || vid.classList[0] === "diaf") {
-      typVid = "Diapo  ";}
+      typVid = "Diapo  ";
+    }
     //tableau des ID et texte des titres de video
     ecVideos.insertAdjacentHTML(
       "beforeend",
@@ -73,7 +73,7 @@ const creerContYT = (param) => {
       /></button>`
     );
   }
-  return lien.length
+  return lien.length;
 };
 // ====== afficher les Iframe YT de l'ID du lien video et calculer les dimensions de ecranYT
 const afficheIframe = (ecr, typ) => {
@@ -99,12 +99,9 @@ const afficheIframe = (ecr, typ) => {
   );
 };
 /* afficher  les videos dans les ecranYT quand visible, sinon supprimer*/
-const afficheVisible = (hec, typ) => {
-  hec = Math.round(hec / 3) + "px";
+const afficheVisible = (typ) => {
   const options = {
-    root: document.querySelector(".ecranVideos"),
-    threshold: [0.5],
-    rootMargin: hec,
+    threshold: [0.1],
   };
 
   const observer = new IntersectionObserver((entries) => {
@@ -119,7 +116,7 @@ const afficheVisible = (hec, typ) => {
         entry.target.classList.remove("show");
         let fiche = entry.target.querySelector(".lect");
         if (fiche) {
-          fiche.setAttribute("src", fiche.getAttribute("src"));
+          fiche.src = fiche.src.replace(fiche.src, fiche.src);
         }
       }
     });
@@ -143,19 +140,18 @@ const litElements = (listEl, blocLink, typyt) => {
       );
       // calculer et formater les Ecrans YT aux bonnes dimensions
       const ecranYT = document.querySelectorAll(".ecranYT");
-      let hec = 10000;
       ecranYT.forEach((ec) => {
         //formate ecranYT et calcule le minimum des hauteurs pour rootMargin
-        hec = Math.min(hec, parseInt(dimZoom(ec)));
+        dimZoom(ec);
       });
       //affiche le titre de la selection du sous menu
       titre.innerHTML = "";
- 
+
       if (aff) {
         titre.innerHTML = el.innerHTML;
       }
       /* affiche les iframe visibles lors du scroll */
-      afficheVisible(hec, typyt);
+      afficheVisible(typyt);
     });
   });
 };
