@@ -28,6 +28,7 @@ const typeVid = (el) => {
   return "";
 };
 // calcule les dimensions des ecrans ecranYT, qui contiennent les Iframes YT
+const reduct = 0.98;
 const dimZoom = (el) => {
   let ratioI = 16 / 9;
   /* si ratio 43 dans la liste passer à 4/3*/
@@ -37,16 +38,23 @@ const dimZoom = (el) => {
   const wh = ecVideos.clientHeight - 31; /* -31 pour tenir compte du titre */
   const ratioW = wl / wh;
   /* si on compare les ratios,il faut inverser et definir d'abord la hauteur */
-  el.style.width = wl + "px";
-  el.style.height = wl / ratioI + "px";
+  el.style.width = wl * reduct + "px";
+  el.style.height = (wl * reduct) / ratioI + "px";
   if (ratioW > ratioI) {
-    el.style.width = wh * ratioI + "px";
-    el.style.height = wh + "px";
+    el.style.width = wh * reduct * ratioI + "px";
+    el.style.height = wh * reduct + "px";
   }
 };
-
+// affiche ou efface le bouton retour
+const affEffRetour = (sens) => {
+  const retour = document.querySelector(".retour");
+  if (sens === "+") retour.classList.add("show");
+  if (sens === "-") retour.classList.remove("show");
+};
 /* fonction pour créer les boites contYT/ecranYT pour les futurs Iframes YT */
 const creerContYT = (param) => {
+  //supprimer l'image de retour
+  affEffRetour("-");
   const lien = document.querySelectorAll(param);
   lien.forEach((vid) => {
     let typVid = "Video  ";
@@ -64,15 +72,8 @@ const creerContYT = (param) => {
     );
   });
   /* rajouter un bouton de retour au debut */
-  if (ecVideos.innerHTML && lien.length > 1) {
-    ecVideos.insertAdjacentHTML(
-      "beforeend",
-      `<button onclick="toTop()" class="retour"><img
-      src="./images/retour.png"
-      alt="back to top"
-      /></button>`
-    );
-  }
+  if (ecVideos.innerHTML && lien.length > 1) affEffRetour("+");
+
   return lien.length;
 };
 // ====== afficher les Iframe YT de l'ID du lien video et calculer les dimensions de ecranYT
@@ -103,17 +104,16 @@ const afficheVisible = (typ) => {
   const options = {
     threshold: [0.1],
   };
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         if (!entry.target.innerHTML) {
           afficheIframe(entry.target, typ);
         }
-        entry.target.classList.add("show");
+        // entry.target.classList.add("show");
       } else {
         // efface progressivement la video et l'arrete en remplaçant le src par lui même
-        entry.target.classList.remove("show");
+        // entry.target.classList.remove("show");
         let fiche = entry.target.querySelector(".lect");
         if (fiche) {
           fiche.src = fiche.src.replace(fiche.src, fiche.src);
@@ -164,10 +164,11 @@ const menus = document.querySelectorAll(".btn-top");
 const titre = document.querySelector(".titre");
 const boutEff = document.querySelector("#efface");
 const blocs = document.querySelectorAll(".bloc-links");
-/* actionner le bouton efface pour effacer les iframes et titres*/
+/* actionner le bouton efface pour effacer les iframes les titres et le bouton retour*/
 boutEff.addEventListener("click", () => {
   ecVideos.innerHTML = "";
   titre.innerHTML = "";
+  affEffRetour("-");
 });
 /* tous les sous menu invisibles => hauteur O */
 blocs.forEach((bl) => (bl.style.height = `0px`));
