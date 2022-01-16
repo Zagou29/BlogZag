@@ -167,7 +167,7 @@ a {
   border: 3px solid transparent;
   width: 100%;
 }
-.retour > img:hover,
+button:hover,
 #efface:hover {
   box-shadow: 3px 3px 4px black;
 }
